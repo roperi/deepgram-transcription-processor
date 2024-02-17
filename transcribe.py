@@ -3,15 +3,11 @@
 import httpx
 import argparse
 import os
-from datetime import datetime
 import json
-import logging, verboselogs
 from dotenv import load_dotenv
 from deepgram import (
     DeepgramClient,
-    DeepgramClientOptions,
     PrerecordedOptions,
-    FileSource,
 )
 from config import config
 
@@ -56,7 +52,6 @@ def main(input_path, is_url, project_name):
 
             # Input is a URL
             response = deepgram.listen.prerecorded.v("1").transcribe_url(AUDIO_URL, options, timeout=timeout)
-            base_name = f"url_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         else:
             # Input is a local file
             with open(input_path, "rb") as file:
@@ -65,17 +60,13 @@ def main(input_path, is_url, project_name):
                 "buffer": buffer_data,
             }
             response = deepgram.listen.prerecorded.v("1").transcribe_file(payload, options, timeout=timeout)
-            base_name = os.path.splitext(os.path.basename(input_path))[0]
 
         response_dict = response.to_dict()
         print('Saving transcription...')
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         if is_url:
-            output_filename = f"{project_name}_{timestamp}__transcription.json"
-            output_filename_ts = f"{project_name}_{timestamp}"
+            output_filename = f"{project_name}__transcription.json"
         else:
-            output_filename = f"{project_name}_{timestamp}__transcription.json"
-            output_filename_ts = f"{project_name}_{timestamp}"
+            output_filename = f"{project_name}__transcription.json"
 
         output_json = os.path.join('output', output_filename)
         with open(output_json, "w") as json_file:
@@ -83,19 +74,19 @@ def main(input_path, is_url, project_name):
 
         # Process transcript text file
         print('Getting diarize and summary from transcript...')
-        process_transcript(output_json, output_filename_ts)
+        process_transcript(output_json, project_name)
 
     except Exception as e:
         print(f"Exception: {e}")
 
 
-def process_transcript(output_json, output_filename_ts):
+def process_transcript(output_json, project_name):
     """
     Process a transcript from the JSON output of Deepgram's transcription.
 
     Parameters:
         output_json (str): Path to the JSON file containing the transcription output.
-        output_filename_ts (str): Name of the filename with timestamp.
+        project_name (str): Name of the project.
 
     """
     summary_lines = []
@@ -108,7 +99,7 @@ def process_transcript(output_json, output_filename_ts):
     summary_lines.append(summary)
 
     # Write summary to file
-    with open(os.path.join('output', f'{output_filename_ts}__summary.txt'), 'w') as f_summary:
+    with open(os.path.join('output', f'{project_name}__summary.txt'), 'w') as f_summary:
         for line in summary_lines:
             f_summary.write(line.strip() + '\n')
 
@@ -117,7 +108,7 @@ def process_transcript(output_json, output_filename_ts):
         'paragraphs', {}).get('transcript', "")
 
     # Write paragraphs to file
-    with open(os.path.join('output', f'{output_filename_ts}__paragraphs.txt'), 'w') as f_paragraphs:
+    with open(os.path.join('output', f'{project_name}__paragraphs.txt'), 'w') as f_paragraphs:
         f_paragraphs.write(paragraphs_transcript)
 
     # Extract topics from JSON
@@ -130,7 +121,7 @@ def process_transcript(output_json, output_filename_ts):
             topic_values.append(topic_value)
 
     # Write topics to file
-    with open(os.path.join('output', f'{output_filename_ts}__topics.txt'), 'w') as f_topics:
+    with open(os.path.join('output', f'{project_name}__topics.txt'), 'w') as f_topics:
         for topic in topic_values:
             f_topics.write(topic.strip() + '\n')
 
