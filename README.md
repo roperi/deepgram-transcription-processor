@@ -11,7 +11,7 @@ This Python program is designed to process transcription output obtained from De
 ## Requirements
 
 - Python 3.x
-- Deepgram API access
+- Deepgram API acces. You can signup for free and get $200 in credits! (as of February 2024)
 - JSON transcription output from Deepgram
 
 
@@ -64,6 +64,13 @@ This program has been tested and verified to work correctly in Python 3.10 Debia
     ```
 
 ## Setup Deepgram API Key
+
+
+**Free credit when signing up**
+
+As of February 2024 new accounts get $200 in credit (up to 45,000 minutes), absolutely free. No credit card needed. This is more than enough for playing around with their API! 
+
+**Get API key**
 
 Before using this program, you need to obtain an API key from Deepgram's transcription service. Follow these steps to set up your API key:
 
