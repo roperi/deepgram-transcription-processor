@@ -24,13 +24,14 @@ TAG = 'SPEAKER '
 
 # Function
 
-def main(input_path, is_url):
+def main(input_path, is_url, project_name):
     """
     Process audio files or URLs.
 
     Parameters:
         input_path (str): Path to the input audio file or URL.
         is_url (bool): Flag to specify whether the input is a URL.
+        project_name (str): Name of the project.
     """
     try:
         print('Initialising...')
@@ -70,12 +71,11 @@ def main(input_path, is_url):
         print('Saving transcription...')
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         if is_url:
-            output_filename = f"transcription_url_{timestamp}.json"
-            output_filename_txt = f"url_{timestamp}.txt"
+            output_filename = f"{project_name}_{timestamp}__transcription.json"
+            output_filename_ts = f"{project_name}_{timestamp}"
         else:
-            base_filename = os.path.splitext(os.path.basename(input_path))[0]
-            output_filename = f"transcription_{base_filename}_{timestamp}.json"
-            output_filename_txt = f"{base_name}_{timestamp}.txt"
+            output_filename = f"{project_name}_{timestamp}__transcription.json"
+            output_filename_ts = f"{project_name}_{timestamp}"
 
         output_json = os.path.join('output', output_filename)
         with open(output_json, "w") as json_file:
@@ -83,19 +83,20 @@ def main(input_path, is_url):
 
         # Process transcript text file
         print('Getting diarize and summary from transcript...')
-        process_transcript(output_json, output_filename_txt)
+        process_transcript(output_json, output_filename_ts)
 
     except Exception as e:
         print(f"Exception: {e}")
 
 
-def process_transcript(output_json, output_transcript):
+def process_transcript(output_json, output_filename_ts):
     """
     Process a transcript from the JSON output of Deepgram's transcription.
 
     Parameters:
         output_json (str): Path to the JSON file containing the transcription output.
-        output_transcript (str): Path to the output text file to save the transcript.
+        output_filename_ts (str): Name of the filename with timestamp.
+
     """
     summary_lines = []
 
@@ -107,7 +108,7 @@ def process_transcript(output_json, output_transcript):
     summary_lines.append(summary)
 
     # Write summary to file
-    with open(os.path.join('output', f'summary_{output_transcript}'), 'w') as f_summary:
+    with open(os.path.join('output', f'{output_filename_ts}__summary.txt'), 'w') as f_summary:
         for line in summary_lines:
             f_summary.write(line.strip() + '\n')
 
@@ -116,7 +117,7 @@ def process_transcript(output_json, output_transcript):
         'paragraphs', {}).get('transcript', "")
 
     # Write paragraphs to file
-    with open(os.path.join('output', f'paragraphs_{output_transcript}'), 'w') as f_paragraphs:
+    with open(os.path.join('output', f'{output_filename_ts}__paragraphs.txt'), 'w') as f_paragraphs:
         f_paragraphs.write(paragraphs_transcript)
 
     # Extract topics from JSON
@@ -129,22 +130,23 @@ def process_transcript(output_json, output_transcript):
             topic_values.append(topic_value)
 
     # Write topics to file
-    with open(os.path.join('output', f'topics_{output_transcript}'), 'w') as f_topics:
+    with open(os.path.join('output', f'{output_filename_ts}__topics.txt'), 'w') as f_topics:
         for topic in topic_values:
             f_topics.write(topic.strip() + '\n')
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process transcripts from audio files or URLs.')
-    parser.add_argument('--url', '-u', action='store_true', help='Flag to specify input as a URL.')
-    parser.add_argument('input', nargs=1, help='Path to audio file or URL.')
+    parser.add_argument('--name', '-n', required=True, help='Name of the transcription project.')
+    parser.add_argument('--input', '-i', nargs=1, help='Path to audio file or URL.')
+
     args = parser.parse_args()
 
-    if args.url:
-        input_path = args.input[0]
-        is_url = True
-    else:
-        input_path = args.input[0]
-        is_url = False
+    input_path = args.input[0]
+    is_url = False
 
-    main(input_path, is_url)
+    # Detect if input path is a URL
+    if input_path.startswith('http://') or input_path.startswith('https://'):
+        is_url = True
+
+    main(input_path, is_url, args.name)

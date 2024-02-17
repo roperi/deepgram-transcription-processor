@@ -90,7 +90,8 @@ Before using this program, you need to obtain an API key from Deepgram's transcr
 2. **Run the Program:** Once your API key is set up, you can run the program with the following command:
 
     ```bash
-    python process_transcript.py [--url] input_path
+    python transcribe.py [-h] --name NAME [--url] input
+
     ```
 
     - Replace `input_path` with the path to the audio file or URL you want to process.
@@ -98,16 +99,27 @@ Before using this program, you need to obtain an API key from Deepgram's transcr
 
 Output will be saved in the output folder.
 
-Example with URL:
+Example with a URL:
 
 ```
-python process_transcript.py --url https://example.com/audio.wav
+python transcribe.py --name "Awesome podcast - Episode 1" --input https://example.com/audio.wav
 ```
 
 Example with a mp3 file:
 
 ```
-python process_transcript.py --url input/conversation.mp3
+python transcribe.py -n "Customer service conversation" -i input/conversation.mp3
+```
+
+### Output 
+
+After executing the command you should check in the output folder for all the files.  
+
+```commandline
+output/Customer service conversation_20240217_180000__transcription.json
+output/Customer service conversation_20240217_180000__paragraphs.txt
+output/Customer service conversation_20240217_180000__summary.txt
+output/Customer service conversation_20240217_180000__topics.txt
 ```
 
 ## Logging Configuration
