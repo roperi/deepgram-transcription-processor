@@ -113,13 +113,13 @@ python transcribe.py -n "Customer service conversation" -i input/conversation.mp
 
 ### Output 
 
-After executing the command you should check in the output folder for all the files.  
+After executing the command you should check in the output folder for all the processed files.  
 
 ```commandline
-output/Customer service conversation_20240217_180000__transcription.json
-output/Customer service conversation_20240217_180000__paragraphs.txt
-output/Customer service conversation_20240217_180000__summary.txt
-output/Customer service conversation_20240217_180000__topics.txt
+output/Customer service conversation__transcription.json
+output/Customer service conversation__paragraphs.txt
+output/Customer service conversation__summary.txt
+output/Customer service conversation__topics.txt
 ```
 
 ## Logging Configuration
