@@ -122,6 +122,41 @@ output/Customer service conversation__summary.txt
 output/Customer service conversation__topics.txt
 ```
 
+## Running Unit Tests
+
+To run the unit tests for this project, follow these steps:
+
+1. **Clone the Repository**: Clone the project repository to your local machine using Git:
+
+    ```
+    git clone git clone https://github.com/roperi/deepgram-transcription-processor.git
+    ```
+
+2. **Navigate to the Tests Directory**: Open a terminal or command prompt, and change into the directory containing the unit test scripts:
+
+    ```
+    cd deepgram-transcription-processor/
+    ```
+
+3. **Run the Tests**: Execute the test script using the Python interpreter:
+
+    ```
+    python test_transcribe.py
+    ```
+
+4. **Review Test Results**: After running the tests, review the output to ensure that all tests passed successfully.
+
+    ```
+    ----------------------------------------------------------------------
+    Ran 3 tests in 0.001s
+
+    OK
+    ```
+
+If any tests fail, review the error messages to identify the issues and make any necessary corrections to the code.
+
+
+
 ## Logging Configuration
 
 This project utilizes Python's logging module to provide detailed information about the program's execution. The logging level can be adjusted to control the verbosity of the logs. 
