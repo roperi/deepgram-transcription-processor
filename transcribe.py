@@ -30,6 +30,10 @@ def main(input_path, is_url, project_name):
         project_name (str): Name of the project.
     """
     try:
+        # Create the 'output' folder if it doesn't exist
+        if not os.path.exists('output'):
+            os.makedirs('output')
+
         print('Initialising...')
         deepgram = DeepgramClient(DG_API_KEY, config)
 
