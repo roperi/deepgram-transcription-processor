@@ -2,11 +2,13 @@
 
 This Python program is designed to process transcription output obtained from Deepgram's transcription service. It extracts key information such as topics, summary, and paragraphs from the transcription output JSON and writes them to separate text files for further analysis and reference.
 
+----------
+
 ## Features
 
 - Extracts topics from the transcription output and writes them to a text file.
 - Extracts summary information from the transcription output and writes it to a separate text file.
-- Extracts paragraphs from the transcription output and writes them to another text file.
+- Extracts a diarized conversation (eg. SPEAKER 0 - Hello; SPEAKER 1: Hey!...) from the transcription output and writes them to another text file.
 
 ## Requirements
 
@@ -197,6 +199,23 @@ TIMEOUT_SECONDS = 600.0 # = 10 minutes
 
 With this file you could control logging and timeout (especially if you get `write operation timed out` errors)
 
+
+## Handling Errors and Tracking Failed Projects
+
+In the transcription process, it's essential to handle errors gracefully and keep track of any projects that fail for any reason. To accomplish this, we've implemented error handling in the `main` function of our transcription script. If an exception occurs during the transcription process, the project name is written to a text file named `errored.txt` in the output folder. This allows us to keep track of failed projects and troubleshoot any issues that may arise.
+
+### Usage
+
+When running the transcription script, ensure that the `errored.txt` file is present in the `output` directory. If any project fails during transcription, the script will automatically append the name of the failed project to the `errored.txt` file.
+
+To view the list of failed projects, simply open the `errored.txt` inside the output folder using a text editor. Each failed project name is written on a separate line for easy identification.
+
+### Example
+
+Suppose we have a project named "Podcast Episode 1" that fails during transcription due to an exception. After running the transcription script, we navigate to the `errored.txt` file and find the following entry:
+
+
+----------
 
 ## Copyright and License
 Copyright 2023 Deepgram SDK contributors.

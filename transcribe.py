@@ -82,6 +82,16 @@ def main(input_path, is_url, project_name):
 
     except Exception as e:
         print(f"Exception: {e}")
+        write_to_errored_file(project_name)
+
+
+def write_to_errored_file(project_name):
+    """
+    Write the project name to the errored.txt file.
+    """
+    errored_file_path = "output/errored.txt"
+    with open(errored_file_path, "a") as errored_file:
+        errored_file.write(project_name + "\n")
 
 
 def process_transcript(output_json, project_name):
