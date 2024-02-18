@@ -13,7 +13,7 @@ This Python program is designed to process transcription output obtained from De
 ## Requirements
 
 - Python 3.x
-- Deepgram API acces. You can signup for free and get $200 in credits! (as of February 2024)
+- Deepgram API access. You can signup for free and get $200 in credits! (as of February 2024)
 
 
 ## Tested Environment
