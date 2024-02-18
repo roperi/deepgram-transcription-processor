@@ -151,7 +151,7 @@ To run the unit tests for this project, follow these steps:
     python test_transcribe.py
     ```
 
-4. **Review Test Results**: After running the tests, review the output to ensure that all tests passed successfully.
+4. **Review Test Results**: After running the tests, review the output to ensure that all tests passed successfully. There is an empty audio file incliuded for testing purposes.
 
     ```
     ----------------------------------------------------------------------
