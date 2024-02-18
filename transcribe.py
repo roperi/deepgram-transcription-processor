@@ -46,7 +46,7 @@ def main(input_path, is_url, project_name):
             topics=True,
         )
 
-        timeout = httpx.Timeout(300.0, connect=10.0)
+        timeout = httpx.Timeout(600.0, connect=10.0)
 
         print(f'Transcribing {input_path}')
         if is_url:
