@@ -156,14 +156,28 @@ To run the unit tests for this project, follow these steps:
 If any tests fail, review the error messages to identify the issues and make any necessary corrections to the code.
 
 
+## Transcribing Audio Files in a Folder
 
-## Logging Configuration
+The `transcribe_all_audio_files.py` script allows you to transcribe all audio files in a specified folder concurrently. To use this functionality, follow these steps:
 
-This project utilizes Python's logging module to provide detailed information about the program's execution. The logging level can be adjusted to control the verbosity of the logs. 
+1. **Specify Folder Path**: Use the `-i` or `--input` option to specify the path to the folder containing the audio files.
 
-### Configuration
+    ```bash
+    python transcribe_all_audio_files.py -i /path/to/your/folder
+    ```
 
-The logging configuration is stored separately from the main codebase to allow for easy customization without altering the source files. The logging configuration can be found in the `config.py` file, which is included in the `.gitignore` to prevent sensitive information from being exposed in version control.
+2. **Transcription Process**: The script will transcribe all audio files in the specified folder concurrently using multiple subprocesses, optimizing resource utilization and reducing transcription time.
+
+3. **Output**: The transcription results for each audio file will be saved to the specified output directory.
+
+This functionality is useful when you have a large number of audio files to transcribe and want to process them in parallel to expedite the transcription process.
+
+
+## Configuration
+
+### Logging
+
+Create a `config.py` in the project folder and paste the following:
 
 ```python
 # config.py
@@ -176,7 +190,13 @@ config = DeepgramClientOptions(
     verbose=logging.SPAM,
     # Add other logging parameters as needed
 )
+
+# Define the timeout value in seconds
+TIMEOUT_SECONDS = 600.0 # = 10 minutes
 ```
+
+With this file you could control logging and timeout (especially if you get `write operation timed out` errors)
+
 
 ## Copyright and License
 Copyright 2023 Deepgram SDK contributors.
