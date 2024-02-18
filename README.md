@@ -12,7 +12,6 @@ This Python program is designed to process transcription output obtained from De
 
 - Python 3.x
 - Deepgram API acces. You can signup for free and get $200 in credits! (as of February 2024)
-- JSON transcription output from Deepgram
 
 
 ## Tested Environment
@@ -89,20 +88,14 @@ Before using this program, you need to obtain an API key from Deepgram's transcr
     Save the `.env` file.
 
 ## Usage
-1. **Create output folder:** Create an output folder to save the topics, summary and paragraphs. The `output` dir is hardcoded in the code so make sure to create it:
-   ```bash
-   mkdir output/
-   ```
-
-2. **Run the Program:** Once your API key is set up, you can run the program with the following command:
+1. **Run the Program:** Once your API key is set up, you can run the program with the following command:
 
     ```bash
-    python transcribe.py [-h] --name NAME [--url] input
+    python transcribe.py [-h] --name NAME [--input INPUT]
 
     ```
-
-    - Replace `input_path` with the path to the audio file or URL you want to process.
-    - Optionally, use the `--url` flag if the input is a URL instead of a local audio file.
+    - Replace `name` with the name of your project.
+    - Replace `input` with the path to the audio file or URL you want to process.
 
 Output will be saved in the output folder.
 
