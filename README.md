@@ -7,7 +7,7 @@ This Python program is designed to process transcription output obtained from De
 ## Features
 
 - Extracts topics from the transcription output and writes them to a text file.
-- Extracts summary information from the transcription output and writes it to a separate text file.
+- Extracts summary information from the transcription output and writes it to a separate text file (expect some weird hallucinations at times)
 - Extracts a diarized conversation (eg. SPEAKER 0 - Hello; SPEAKER 1: Hey!...) from the transcription output and writes them to another text file.
 
 ## Requirements
