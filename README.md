@@ -209,12 +209,6 @@ In the transcription process, it's essential to handle errors gracefully and kee
 When running the transcription script, ensure that the `errored.txt` file is present in the `output` directory. If any project fails during transcription, the script will automatically append the name of the failed project to the `errored.txt` file.
 
 To view the list of failed projects, simply open the `errored.txt` inside the output folder using a text editor. Each failed project name is written on a separate line for easy identification.
-
-### Example
-
-Suppose we have a project named "Podcast Episode 1" that fails during transcription due to an exception. After running the transcription script, we navigate to the `errored.txt` file and find the following entry:
-
-
 ----------
 
 ## Copyright and License
