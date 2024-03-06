@@ -43,7 +43,7 @@ def main(input_path, is_url, project_name):
             smart_format=True,
             diarize=True,
             summarize="v2",
-            topics=True,
+            detect_topics=True,
         )
 
         timeout = httpx.Timeout(TIMEOUT_SECONDS, connect=10.0)
